@@ -12,10 +12,18 @@ module.exports = {
 	},
 };
 
-function start(argument) {
+function start() {
 	var relevantFunction = this.objective;
+	var argumentString = "relevantFunction("
+	var argumentArray = [],
+			args = [];
+	for (var i = 0; i < arguments.length; i++) {
+		argumentArray.push("args[" + i + "]");
+		args.push(arguments[i]);
+	}
+	argumentString += argumentArray.join(", ") + (")");
 	setInterval(function(){
-		relevantFunction(argument);
+		eval(argumentString);
 	}, this.period);
 };
 
