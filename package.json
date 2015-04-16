@@ -1,0 +1,22 @@
+{
+  "name": "interim",
+  "version": "0.0.0",
+  "description": "A manager for your Timeouts and Intervals.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "keywords": [
+    "timeout",
+    "timeouts",
+    "interval",
+    "intervals"
+  ],
+  "author": "Daniel Farber",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1"
+  }
+}
