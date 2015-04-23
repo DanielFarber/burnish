@@ -1,14 +1,18 @@
 module.exports = {
 	all: {},
 	initiate: function(func, period, options){
-		return {
+		var newInterimObject = {
 			objective: func,
 			start: start,
 			stop: stop,
 			mute: mute,
 			unmute: unmute,
 			period: period,
+			id: 0,
 		};
+		newInterimObject.id = Object.keys(this.all).length;
+		this.all[newInterimObject.id]	= {};
+		return newInterimObject;
 	},
 };
 

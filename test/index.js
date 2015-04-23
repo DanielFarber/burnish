@@ -22,19 +22,23 @@ describe("#interim", function(){
 
 describe("#initiate", function(){
 
-	var initiate = interim.initiate;
-
 	it("should return an object", function(){
-		(initiate() instanceof Object).should.equal(true);
+		(interim.initiate() instanceof Object).should.equal(true);
 	});
 
 	it("should accept a function as an argument", function(){
-		(initiate(new Function) instanceof Object).should.equal(true);
+		(interim.initiate(new Function) instanceof Object).should.equal(true);
 	});
 
 	it("should accept a second argument, either an object or an integer", function(){
-		(initiate(new Function, {}) instanceof Object).should.equal(true);
-		(initiate(new Function, 27) instanceof Object).should.equal(true);
+		(interim.initiate(new Function, {}) instanceof Object).should.equal(true);
+		(interim.initiate(new Function, 27) instanceof Object).should.equal(true);
+	});
+
+	it("gives each returned object a new id", function(){
+		var firstObject = interim.initiate(new Function, 10);
+		var secondObject = interim.initiate(new Function, 11);
+		firstObject.id.should.not.equal(secondObject.id);
 	});
 
 });
@@ -68,6 +72,12 @@ describe("#the_returned_object", function(){
 		returnedObject = interim.initiate(new Function, testPeriod);
 		(returnedObject.period).should.equal(testPeriod);
 	});
+
+	it("has an 'id' attribute which is an integer, like a primary key", function(){
+		var testPeriod = 10;
+		returnedObject = interim.initiate(new Function, testPeriod);
+		(typeof returnedObject.id).should.equal('number');
+	});
 });
 
 describe("#start", function(){
@@ -87,9 +97,7 @@ describe("#start", function(){
 		clock.tick(1);
 		testObject.length.should.equal(1);
 	});
-	//The last test can prove what this demonstrates and this test should
-	//show that start() starts the interval (although there are a few other things that
-	// should be in place first.)
+
 	it("shouldn't interrupt the interval", function() {
 		var testObject = [];
 		var clock = sinon.useFakeTimers();
@@ -135,3 +143,13 @@ describe("#start", function(){
 		testObject.join(" ").should.equal("Franks and Beans");
 	});
 });
+
+describe("#interim.all", function(){
+	it("stores the ids of all initiated objects", function(){
+		var returnedObject = interim.initiate(new Function, 10);
+		(interim.all[returnedObject.id]).should.not.be.undefined;
+	});
+
+})
+
+
