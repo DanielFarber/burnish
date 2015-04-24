@@ -1,5 +1,5 @@
 {
-  "name": "interim",
+  "name": "burnish",
   "version": "0.0.0",
   "description": "A manager for your Timeouts and Intervals.",
   "main": "index.js",
